@@ -1,6 +1,7 @@
 import re
 from datetime import datetime, timedelta
 from typing import Dict, Optional, Union
+from email_service import EmailNotificationService
 
 class ShipmentTracker:
     def __init__(self):
@@ -22,10 +23,16 @@ class ShipmentTracker:
         return "Shipment not found"
     
     def update_status(self, tracking_id, new_status):
-        """Update shipment status"""
+        """Update shipment status with email notification"""
         if tracking_id in self.shipments:
             self.shipments[tracking_id]['status'] = new_status
             self.shipments[tracking_id]['updates'].append(new_status)
+            
+            # Send email notification if email provided
+            if notify_email:
+                email_service = EmailNotificationService()
+                email_service.send_status_update(tracking_id, notify_email, new_status)
+            
             return f"Status updated to: {new_status}"
         return "Shipment not found"
 
