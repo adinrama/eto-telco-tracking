@@ -25,6 +25,29 @@ class ShipmentTracker:
             return f"Status updated to: {new_status}"
         return "Shipment not found"
 
+    def get_realtime_location(self, tracking_id):
+        """Get real-time GPS location of shipment"""
+        if tracking_id in self.shipments:
+            # Simulasi koordinat GPS
+            return {
+                'tracking_id': tracking_id,
+                'latitude': 1.3521,
+                'longitude': 103.8198,
+                'last_update': '2024-12-18 10:30:00',
+                'current_location': 'Singapore Port'
+            }
+        return "Shipment not found"
+    
+    def get_estimated_arrival(self, tracking_id):
+        """Calculate estimated arrival time"""
+        if tracking_id in self.shipments:
+            return {
+                'tracking_id': tracking_id,
+                'estimated_arrival': '2024-12-25 14:00:00',
+                'status': 'In Transit'
+            }
+        return "Shipment not found"
+
 # Main execution
 if __name__ == "__main__":
     tracker = ShipmentTracker()
